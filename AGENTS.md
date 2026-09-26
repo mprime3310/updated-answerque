@@ -2,21 +2,29 @@
 
 ## Git Workflow
 
-- This checkout tracks the public fork at `origin`: `https://github.com/FarzamHejaziK/AnswerCue.git`.
-- The original upstream project is configured as `upstream`; use `git remote -v` if you need the exact remote URL.
-- Push local work to `origin`, not `upstream`.
-- Keep the local `upstream` push URL disabled unless the user explicitly asks to change it.
-- To bring in future updates from the original upstream:
+- `origin` is `https://github.com/mprime3310/updated-answerque.git`.
+- This repository is a **standalone snapshot** of AnswerCue 2.7.18 (single commit `b79f3ce`).
+  It is **not** a fork of `https://github.com/FarzamHejaziK/AnswerCue.git` and shares no commit
+  ancestry with it — the working copy it was created from was a ZIP download with no `.git`
+  directory, so `git init` produced an orphan root.
+- There is no `upstream` remote configured. To pull in later upstream work, add it first:
 
 ```bash
+git remote add upstream https://github.com/FarzamHejaziK/AnswerCue.git
 git fetch upstream
-git checkout main
-git merge upstream/main
-git push origin main
 ```
 
-- Prefer `git merge upstream/main` over `git rebase upstream/main` for shared/public branches so public history is not rewritten.
-- If there are merge conflicts, resolve them in favor of preserving this fork's intentional changes unless the user asks otherwise.
+- Because the two histories are unrelated, merging upstream into this branch needs an explicit
+  unrelated-histories merge. Do this deliberately — it will conflict on nearly every file:
+
+```bash
+git merge upstream/main --allow-unrelated-histories
+```
+
+- Prefer `git merge` over `git rebase` for shared/public branches so public history is not
+  rewritten.
+- If there are merge conflicts, resolve them in favor of preserving this repository's
+  intentional changes unless the user asks otherwise.
 
 ## Repository Notes
 
