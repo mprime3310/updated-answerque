@@ -70,17 +70,64 @@ AnswerCue is focused on interview workflows, not a generic meeting dashboard.
 Main repository:
 
 ```bash
-https://github.com/FarzamHejaziK/AnswerCue
+https://github.com/mprime3310/updated-answerque.git
 ```
 
-Clone:
+## Run It Live — Copy-Paste Terminal Commands
+
+Prerequisites:
+
+- Node.js 22 LTS (or 20+)
+- npm (comes with Node.js)
+- Rust and Cargo (for the native audio module)
+- Xcode Command Line Tools on macOS
+
+### Option A — paste one by one (recommended for first run)
 
 ```bash
-git clone https://github.com/FarzamHejaziK/AnswerCue.git
-cd AnswerCue
+git clone https://github.com/mprime3310/updated-answerque.git
+cd updated-answerque
+npm install
+npm run build:native
+npm start
 ```
 
-The original upstream project remains configured separately for future merge updates, but AnswerCue branding, documentation, and release metadata should point to this repository.
+### Option B — paste one whole line
+
+macOS / Linux / Git Bash:
+
+```bash
+git clone https://github.com/mprime3310/updated-answerque.git && cd updated-answerque && npm install && npm run build:native && npm start
+```
+
+Windows PowerShell:
+
+```powershell
+git clone https://github.com/mprime3310/updated-answerque.git; cd updated-answerque; npm install; npm run build:native; npm start
+```
+
+### Already cloned? (run it again)
+
+One by one:
+
+```bash
+cd updated-answerque
+npm start
+```
+
+One whole line (macOS / Linux / Git Bash):
+
+```bash
+cd updated-answerque && npm start
+```
+
+One whole line (Windows PowerShell):
+
+```powershell
+cd updated-answerque; npm start
+```
+
+`npm start` starts Vite on `http://localhost:5180` and launches the Electron desktop app.
 
 ## License
 
@@ -107,7 +154,7 @@ Build the native audio module:
 npm run build:native
 ```
 
-Run locally:
+Run locally (see [Run It Live — Copy-Paste Terminal Commands](#run-it-live--copy-paste-terminal-commands) for exact commands):
 
 ```bash
 npm start
@@ -210,10 +257,9 @@ The prep context must be included in live interview answer generation, not only 
 
 This checkout tracks:
 
-- `origin`: `https://github.com/FarzamHejaziK/AnswerCue.git`
-- `upstream`: original project remote, fetch-only
+- `origin`: `https://github.com/mprime3310/updated-answerque.git`
 
-Push AnswerCue work to `origin`, not `upstream`.
+Push work to `origin`.
 
 To pull future upstream updates:
 
