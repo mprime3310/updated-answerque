@@ -106,6 +106,42 @@ Windows PowerShell:
 git clone https://github.com/mprime3310/updated-answerque.git; cd updated-answerque; npm install; npm run build:native; npm start
 ```
 
+### Downloaded the ZIP instead of cloning?
+
+1. On the repo page, click **Code → Download ZIP**.
+2. Extract the ZIP file.
+3. Open a terminal **inside the extracted folder that contains `package.json`** (for the GitHub ZIP this is the `updated-answerque-main` folder — if you open it and see just one folder inside, go one level deeper until you see `package.json`).
+
+Tip — get into the folder first (adjust the name if yours differs):
+
+```bash
+cd ~/Downloads/updated-answerque-main
+```
+
+```powershell
+cd $env:USERPROFILE\Downloads\updated-answerque-main
+```
+
+First run after extracting — paste one by one:
+
+```bash
+npm install
+npm run build:native
+npm start
+```
+
+First run after extracting — one whole line (macOS / Linux / Git Bash):
+
+```bash
+npm install && npm run build:native && npm start
+```
+
+First run after extracting — one whole line (Windows PowerShell):
+
+```powershell
+npm install; npm run build:native; npm start
+```
+
 ### Already cloned? (run it again)
 
 One by one:
