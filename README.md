@@ -302,6 +302,52 @@ To pull future upstream updates:
 ```bash
 git fetch upstream
 git checkout main
+**The app is live right now** — 10 Electron processes, window titled **AnswerCue** (PID 716), and Vite listening on port 5180.
+
+## The commands
+
+```powershell
+cd "c:\Users\mprim\Downloads\AnswerQue-main\AnswerQue-main"
+npm start
+```
+
+That's the whole thing. Two lines.
+
+## What `npm start` does
+Runs `npm run app:dev`, which fires two processes via `concurrently`:
+1. `vite --port 5180 --strictPort` — renderer dev server
+2. `wait-on http://localhost:5180 && npm run electron:dev` — waits for Vite, rebuilds `dist-electron/`, then launches Electron
+
+## Gotchas found on this machine
+- **The path matters.** Use the **inner** `AnswerQue-main\AnswerQue-main`. The outer folder has no `package.json` and `npm start` will fail there.
+- **Keep the terminal window open.** Closing it kills Vite + Electron together. That's why the app kept disappearing between my checks.
+- **If the window doesn't appear**, run `npm run build:electron` first, then `npm start`. Electron loads `dist-electron/electron/main.js`, so a missing/stale build there blocks the UI.
+- **Vite binds to IPv6 `::1` only**, not `127.0.0.1`. So `http://127.0.0.1:5180` fails while `http://localhost:5180` works. Don't be fooled if you test with the IP.
+- **Startup takes ~60–90 seconds** on this machine before the window shows.
+
+## Alternative: separate terminals
+```powershell
+# terminal 1 — keep running
+cd "c:\Users\mprim\Downloads\AnswerQue-main\AnswerQue-main"
+npx vite --port 5180 --strictPort
+
+# terminal 2 — after terminal 1 prints "ready"
+cd "c:\Users\mprim\Downloads\AnswerQue-main\AnswerQue-main"
+npm run build:electron
+npm run electron:dev
+```
+
+## One-time setup — already done, do NOT repeat
+`node_modules` ✅ · native audio module (`index.win32-x64-msvc.node`) ✅ · Moonshine model ✅ · `dist-electron` ✅
+
+You only re-run `npm run build:native` if you delete that `.node` file or edit `native-module/src/` — and it must run in a shell where `vcvars64.bat` was executed first.
+
+## Separate: actual installer
+If by "live" you meant a distributable app rather than dev mode:
+```powershell
+npm run dist
+```
+Output lands in `.\dist\`. Heavier — it runs `build` → `build:native` → model download → `electron-builder`. For daily use, `npm start` is what you want.
 git merge upstream/main
 git push origin main
 ```
